@@ -23,9 +23,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            let icon = NSImage(systemSymbolName: "terminal", accessibilityDescription: "Endeavour")
-            icon?.isTemplate = true
-            button.image = icon
+            button.image = ShuttleIcon.menuBarImage()
         }
 
         menu.delegate = self
