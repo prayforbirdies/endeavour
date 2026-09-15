@@ -106,7 +106,7 @@ func renderIcon(size: CGFloat) -> CGImage {
     ctx.setShadow(offset: .zero, blur: size * 0.028,
                   color: CGColor(red: 0.55, green: 0.78, blue: 1.0, alpha: 0.7))
     ctx.addPath(shuttle)
-    ctx.setFillColor(CGColor(red: 0.92, green: 0.94, blue: 0.98, alpha: 1))
+    ctx.setFillColor(CGColor(red: 0.60, green: 0.63, blue: 0.68, alpha: 1))
     ctx.fillPath()
     ctx.restoreGState()
 
