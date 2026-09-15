@@ -51,7 +51,7 @@ enum ShuttleIcon {
             sub.close()
             path.append(sub)
         }
-        path.windingRule = .nonzero
+        path.windingRule = .nonZero
         return path
     }
 
