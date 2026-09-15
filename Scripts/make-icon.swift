@@ -11,17 +11,36 @@ import ImageIO
 import UniformTypeIdentifiers
 
 // Same normalized orbiter outline as Sources/Endeavour/ShuttleIcon.swift.
-let rightHalf: [CGPoint] = [
-    CGPoint(x: 0.500, y: 0.050),
-    CGPoint(x: 0.540, y: 0.110),
-    CGPoint(x: 0.552, y: 0.340),
-    CGPoint(x: 0.552, y: 0.460),
-    CGPoint(x: 0.930, y: 0.720),
-    CGPoint(x: 0.930, y: 0.790),
-    CGPoint(x: 0.630, y: 0.800),
-    CGPoint(x: 0.630, y: 0.900),
-    CGPoint(x: 0.552, y: 0.930),
-    CGPoint(x: 0.500, y: 0.930),
+// Imperial Lambda-class shuttle parts (0...1, y down). Mirrors
+// Sources/Endeavour/ShuttleIcon.swift.
+let body: [CGPoint] = [
+    CGPoint(x: 0.430, y: 0.440),
+    CGPoint(x: 0.570, y: 0.440),
+    CGPoint(x: 0.600, y: 0.560),
+    CGPoint(x: 0.515, y: 0.730),
+    CGPoint(x: 0.485, y: 0.730),
+    CGPoint(x: 0.400, y: 0.560),
+]
+let topWing: [CGPoint] = [
+    CGPoint(x: 0.474, y: 0.050),
+    CGPoint(x: 0.526, y: 0.050),
+    CGPoint(x: 0.560, y: 0.480),
+    CGPoint(x: 0.440, y: 0.480),
+]
+let leftWing: [CGPoint] = [
+    CGPoint(x: 0.470, y: 0.485),
+    CGPoint(x: 0.520, y: 0.665),
+    CGPoint(x: 0.150, y: 0.950),
+    CGPoint(x: 0.085, y: 0.895),
+]
+let rightWing: [CGPoint] = leftWing.map { CGPoint(x: 1.0 - $0.x, y: $0.y) }
+let parts: [[CGPoint]] = [body, topWing, leftWing, rightWing]
+
+// Glowing wingtip lights (normalized centers).
+let wingLights: [CGPoint] = [
+    CGPoint(x: 0.500, y: 0.058), // top fin
+    CGPoint(x: 0.117, y: 0.922), // left wing
+    CGPoint(x: 0.883, y: 0.922), // right wing
 ]
 
 // Deterministic star field (x, y, radiusFraction) in normalized coords.
@@ -38,12 +57,11 @@ func shuttlePath(in rect: CGRect) -> CGPath {
                 y: rect.minY + (1.0 - n.y) * rect.height) // CG origin is bottom-left
     }
     let path = CGMutablePath()
-    path.move(to: pt(rightHalf[0]))
-    for p in rightHalf.dropFirst() { path.addLine(to: pt(p)) }
-    for p in rightHalf.dropLast().reversed() {
-        path.addLine(to: pt(CGPoint(x: 1.0 - p.x, y: p.y)))
+    for poly in parts {
+        path.move(to: pt(poly[0]))
+        for p in poly.dropFirst() { path.addLine(to: pt(p)) }
+        path.closeSubpath()
     }
-    path.closeSubpath()
     return path
 }
 
@@ -81,16 +99,31 @@ func renderIcon(size: CGFloat) -> CGImage {
         ctx.fillEllipse(in: CGRect(x: c.x - r, y: c.y - r, width: 2 * r, height: 2 * r))
     }
 
-    // Centered, padded orbiter with a soft glow.
-    let pad = rect.insetBy(dx: rect.width * 0.17, dy: rect.height * 0.17)
-    let orbiter = shuttlePath(in: pad)
+    // Centered, padded shuttle with a soft glow.
+    let pad = rect.insetBy(dx: rect.width * 0.14, dy: rect.height * 0.14)
+    let shuttle = shuttlePath(in: pad)
     ctx.saveGState()
     ctx.setShadow(offset: .zero, blur: size * 0.028,
                   color: CGColor(red: 0.55, green: 0.78, blue: 1.0, alpha: 0.7))
-    ctx.addPath(orbiter)
-    ctx.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
+    ctx.addPath(shuttle)
+    ctx.setFillColor(CGColor(red: 0.92, green: 0.94, blue: 0.98, alpha: 1))
     ctx.fillPath()
     ctx.restoreGState()
+
+    // Warm glowing wingtip lights.
+    func mapPad(_ n: CGPoint) -> CGPoint {
+        CGPoint(x: pad.minX + n.x * pad.width, y: pad.minY + (1.0 - n.y) * pad.height)
+    }
+    for n in wingLights {
+        let c = mapPad(n)
+        let r = size * 0.022
+        ctx.saveGState()
+        ctx.setShadow(offset: .zero, blur: size * 0.045,
+                      color: CGColor(red: 1.0, green: 0.85, blue: 0.45, alpha: 0.95))
+        ctx.setFillColor(CGColor(red: 1.0, green: 0.95, blue: 0.75, alpha: 1))
+        ctx.fillEllipse(in: CGRect(x: c.x - r, y: c.y - r, width: 2 * r, height: 2 * r))
+        ctx.restoreGState()
+    }
 
     return ctx.makeImage()!
 }
