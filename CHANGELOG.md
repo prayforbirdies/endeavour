@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Super Shuttle are documented here.
+All notable changes to Endeavour are documented here.
 
 ## [2.0.0] - 2026-09-15
 

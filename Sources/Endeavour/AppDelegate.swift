@@ -23,7 +23,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            let icon = NSImage(systemSymbolName: "terminal", accessibilityDescription: "Super Shuttle")
+            let icon = NSImage(systemSymbolName: "terminal", accessibilityDescription: "Endeavour")
             icon?.isTemplate = true
             button.image = icon
         }
@@ -192,7 +192,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         menu.addItem(.separator())
 
-        let about = NSMenuItem(title: "About Super Shuttle", action: #selector(showAbout), keyEquivalent: "")
+        let about = NSMenuItem(title: "About Endeavour", action: #selector(showAbout), keyEquivalent: "")
         about.target = self
         menu.addItem(about)
 
@@ -216,7 +216,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             let action = HostAction(
                 cmd: "\(settings.editor) \(path)",
                 theme: nil,
-                title: "Editing Super Shuttle config",
+                title: "Editing Endeavour config",
                 window: "new",
                 name: "Edit Configuration"
             )
@@ -234,7 +234,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func showAbout() {
         let alert = NSAlert()
-        alert.messageText = "Super Shuttle \(appVersion)"
+        alert.messageText = "Endeavour \(appVersion)"
         alert.informativeText = """
         A simple shortcut menu for macOS.
 
@@ -272,7 +272,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 try SMAppService.mainApp.unregister()
             }
         } catch {
-            NSLog("Super Shuttle launch-at-login error: \(error)")
+            NSLog("Endeavour launch-at-login error: \(error)")
         }
     }
 }

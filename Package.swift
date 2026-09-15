@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "SuperShuttle",
+    name: "Endeavour",
     platforms: [
         .macOS(.v13)
     ],
     targets: [
         .executableTarget(
-            name: "SuperShuttle",
-            path: "Sources/SuperShuttle"
+            name: "Endeavour",
+            path: "Sources/Endeavour"
         )
     ]
 )

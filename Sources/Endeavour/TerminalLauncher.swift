@@ -55,7 +55,7 @@ enum TerminalLauncher {
         var error: NSDictionary?
         script.executeAndReturnError(&error)
         if let error = error {
-            NSLog("Super Shuttle AppleScript error: \(error)")
+            NSLog("Endeavour AppleScript error: \(error)")
         }
     }
 

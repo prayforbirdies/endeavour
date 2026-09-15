@@ -1,8 +1,8 @@
-# Super Shuttle
+# Endeavour
 
 A simple shortcut menu for macOS — a native **Apple Silicon** rewrite of the
 long-unmaintained [Shuttle](https://github.com/fitztrev/shuttle) by Trevor
-Fitzgerald. Super Shuttle lives in your menu bar and launches SSH sessions and
+Fitzgerald. Endeavour lives in your menu bar and launches SSH sessions and
 shell commands in **Terminal.app** or **iTerm**, driven by a simple JSON file.
 
 It runs natively on modern macOS (tested on macOS 27 / Apple Silicon) and is a
@@ -12,7 +12,7 @@ as the original, so an existing setup works untouched.
 ## Why this exists
 
 The original Shuttle is an Intel-only Objective-C app that no longer runs on
-current macOS. Super Shuttle is a clean Swift/AppKit port that keeps the config
+current macOS. Endeavour is a clean Swift/AppKit port that keeps the config
 format, SSH-config integration, and menu behavior, while building as a native
 `arm64` (or universal) binary.
 
@@ -32,22 +32,22 @@ Scripts/build-app.sh
 Scripts/build-app.sh universal
 
 # then install
-cp -R "build/Super Shuttle.app" /Applications/
-open "/Applications/Super Shuttle.app"
+cp -R "build/Endeavour.app" /Applications/
+open "/Applications/Endeavour.app"
 ```
 
-On first launch, macOS will prompt for **Automation** access so Super Shuttle can
+On first launch, macOS will prompt for **Automation** access so Endeavour can
 control Terminal/iTerm (System Settings → Privacy & Security → Automation). The
 "open in a new tab" mode for Terminal.app also uses an **Accessibility** keystroke,
 so grant that too if you use tabs in Terminal.app.
 
 > The bundle is ad-hoc signed. The first time you open it you may need to
 > right-click → **Open**, or clear quarantine with
-> `xattr -dr com.apple.quarantine "/Applications/Super Shuttle.app"`.
+> `xattr -dr com.apple.quarantine "/Applications/Endeavour.app"`.
 
 ## Configuration
 
-Super Shuttle reads `~/.shuttle.json`. A default is created on first launch if
+Endeavour reads `~/.shuttle.json`. A default is created on first launch if
 none exists. Use **Edit Configuration…** from the menu (or edit the file
 directly) and the menu reloads automatically when the file changes.
 
@@ -115,5 +115,5 @@ The `/` in the name nests it under a **Production** submenu.
 
 ## Credits
 
-Super Shuttle is a port of [Shuttle](https://github.com/fitztrev/shuttle) by
+Endeavour is a port of [Shuttle](https://github.com/fitztrev/shuttle) by
 Trevor Fitzgerald and its many contributors. MIT licensed.

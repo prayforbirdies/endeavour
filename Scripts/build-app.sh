@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Builds Super Shuttle.app — a menu-bar (LSUIElement) agent bundle.
+# Builds Endeavour.app — a menu-bar (LSUIElement) agent bundle.
 #
 # Usage:
 #   Scripts/build-app.sh            # arm64 (Apple Silicon) release
@@ -10,9 +10,9 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-APP_NAME="Super Shuttle"
-EXEC_NAME="SuperShuttle"
-BUNDLE_ID="dev.holway.supershuttle"
+APP_NAME="Endeavour"
+EXEC_NAME="Endeavour"
+BUNDLE_ID="dev.holway.endeavour"
 VERSION="2.0.0"
 MIN_MACOS="13.0"
 
@@ -66,7 +66,7 @@ cat > "${CONTENTS}/Info.plist" <<PLIST
     <key>LSUIElement</key>
     <true/>
     <key>NSAppleEventsUsageDescription</key>
-    <string>Super Shuttle needs Automation access to open your commands in Terminal or iTerm.</string>
+    <string>Endeavour needs Automation access to open your commands in Terminal or iTerm.</string>
     <key>NSHumanReadableCopyright</key>
     <string>MIT licensed. Originally created by Trevor Fitzgerald and contributors.</string>
     <key>NSPrincipalClass</key>
